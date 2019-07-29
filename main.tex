@@ -1,0 +1,45 @@
+\documentclass{amsart}
+
+\usepackage{fouche}
+
+\title{a thing about things}
+\author{
+    Ivan Di Liberti
+  , Leonardo Larizza
+  , Fosco Loregian
+}
+
+\def\A{\protect{\{\begin{smallmatrix}
+  \text{monadi}\\
+  \text{lax idem}
+\end{smallmatrix}\}}}
+\def\B{\protect{\{\begin{smallmatrix}
+  \text{LOFS}\\
+  \text{riflessivi}
+\end{smallmatrix}\} }}
+\def\C{\protect{\{\begin{smallmatrix}
+  \text{subcat}\\
+  \text{lax refl}
+\end{smallmatrix} \} }}
+\begin{document}
+\maketitle
+Una lista di cose da fare:
+\begin{itemize}
+  \item rifare i FS lax (seguendo Freyd-Kelly) e partendo dalle proprietà di base ($\clE\cap \clM = ?$ Quanto è unica una fattorizzazione?)
+  \item Rifare [CHK] in versione lax: 
+  \[
+  \xymatrix{
+    \A \ar@<5pt>[dr]^1 && \ar[ll]_{3} \B \ar@<5pt>[dl]^{2'} \\
+     & \C \ar@<5pt>[ur]^2 \ar@<5pt>[ul]^{1'} &
+  }  
+  \]  
+  Per mostrare queste varie implicazioni bisogna controllare che
+  \begin{itemize}
+  \item[1.] Le algebre di una KZ sono una categoria lax reflective
+  \item[1'.] Una subcat lax reflective dà luogo a una monade lax idem
+  \item[3.] dovrebbe già stare in qualche paper
+  \item[2.] $\clB\subset\clA$ subrefl implica che $({}^\perp(\hom \clB), ({}^\perp(\hom\clB))^\perp)$ è un pre-LOFS
+  \item[2'.] La subcat $\{X \mid X \to * \in \clM\}$ è lax reflective
+  \end{itemize}
+\end{itemize}
+\end{document}
