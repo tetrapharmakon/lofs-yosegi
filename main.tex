@@ -9,6 +9,9 @@
   , Fosco Loregian
 }
 
+\def\lp{\mathrel{\mathpalette{\relax}{\Finv}}}
+\usepackage{booktabs}
+
 \def\A{\protect{\{\begin{smallmatrix}
   \text{monadi}\\
   \text{lax idem}
@@ -42,4 +45,78 @@ Una lista di cose da fare:
   \item[2'.] La subcat $\{X \mid X \to * \in \clM\}$ è lax reflective
   \end{itemize}
 \end{itemize}
+\hrulefill
+
+\section{Un po' di cose da fare}
+\begin{definition}[Lax e oplax ortogonalità]
+  
+\end{definition}
+\begin{remark}
+  Connessione tra le due: la lax ortogonalità è oplax ortogonalità in $\clK^\co$.
+\end{remark}
+\begin{definition}
+  La connessione di Galois tra le ortogonalità:
+  \[
+  {}^{\lp}(\firstblank) \dashv (\firstblank)^{\lp}
+  \]
+\end{definition}
+\begin{definition}
+  Lax prefactorization system
+\end{definition}
+\begin{definition}
+  Left and right generated lax prefactorization system
+\end{definition}
+\begin{definition}
+  Lax ortogonalità in una slice categoria
+\end{definition}
+\begin{lemma}
+  TFAE:
+  \begin{itemize}
+    \item $f\lp f$
+    \item $f \lp All$
+    \item $All \lp f$
+    \item $f$ è un{\dots} iso?
+  \end{itemize}
+\end{lemma}
+\begin{remark}
+  Max e min elementi nel poset delle prefactorizations
+\end{remark}
+\begin{proposition}
+  Proprietà di chiusura:
+  % Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+  \begin{tabular}{@{}cc@{}}
+  \toprule
+  $\clH^{\lp}$                 & ${}^{\lp}\clH$                  \\ \midrule
+  contiene tutti gli iso       & contiene tutti gli iso          \\
+  chiuso per composizione      & chiuso per composizione         \\
+  chiuso per push              & chiuso per pull                 \\
+  chiuso per retratti          & chiuso per retratti             \\
+  chiuso per compo transfinite & chiuso per op-compo transfinite \\ \bottomrule
+  \end{tabular}
+  \end{table}
+\end{proposition}
+\begin{proposition}
+  Unicità della fattorizzazione: quanto è unica?
+\end{proposition}
+\begin{proposition}
+  3-per-2 e proprietà di cancellazione:
+  \begin{itemize}
+    \item $\clE$ è R32; $vu,u\in\clE\To v \in\clE$;
+    \item $\clM$ è L32; $v, vu\in\clM\To u\in\clM$.
+  \end{itemize}
+  In un PFS riflessivo, $\clM$ è 3-per-2; in un PFS coriflessivo, $\clE$ è 3-per-2.
+\end{proposition}
+\begin{theorem}
+  Se $\bfC$ è una 2-categoria con un oggetto terminale, c'è un'aggiunzione
+  \[
+  \Phi : Rex(\bfC)_{lax} \leftrightarrows PF(\bfC)_{lax, \tau} : \Psi  
+  \]
+  dove 
+  \begin{itemize}
+    \item $\Psi : (\clE,\clM)\mapsto \{X \mid (X\to *)\in\clM\} \in ReX(\bfC)_{lax}$
+    \item $\Phi : (\bfB\subseteq \bfC) \mapsto \big({}^{\lp}(\hom\bfB), ({}^{\lp}(\hom\bfB))^{\lp}\big)$
+  \end{itemize}
+\end{theorem}
 \end{document}
