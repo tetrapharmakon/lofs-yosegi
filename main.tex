@@ -33,11 +33,27 @@
     \end{tikzpicture}
 }}
 
+\newcommand{\doolp}[1]{\mathrel{
+  \begin{tikzpicture}[scale=#1]
+    \draw[rounded corners=.25pt, line width=.4pt] (0,0) rectangle (1,1);
+    \draw[line width=.3pt] (0,0) -- (1,1);
+    \fill (.6,.6) rectangle (1,1);
+    \end{tikzpicture}
+}}
+
+
 \newcommand{\lp}{
 \mathchoice{\dolp{.165}}
   {\dolp{.165}}
   {\mathrel{\dolp{.1325}}}
   {\mathrel{\dolp{.1}}}
+}
+
+\newcommand{\olp}{
+\mathchoice{\doolp{.165}}
+  {\doolp{.165}}
+  {\mathrel{\doolp{.1325}}}
+  {\mathrel{\doolp{.1}}}
 }
 
 \begin{document}
@@ -64,15 +80,17 @@ Una lista di cose da fare:
 \hrulefill
 
 \section{Un po' di cose da fare}
-\begin{definition}[Lax e oplax ortogonalità]
-  Let $\clK$ be a 2-category. If $f : A\to B, g : X\to Y$ are 1-cells in a lax-commutative square
+\begin{definition}[Lax and oplax orthogonality]
+  Let $\clK$ be a 2-category. 
+  \begin{itemize}
+    \item If $f : A\to B, g : X\to Y$ are 1-cells in a lax-commutative square
   \[
   \xymatrix{
     A \ar@{}[dr]|\Swarrow\ar[d]_f \ar[r]^u & X\ar[d]^g \\
     B \ar[r]_v & Y
   }  
   \]
-we say that \emph{$f$ is left lax-orthogonal to $g$} (or that $g$ is right lax-orthogonal to $f$) and we denote it as $f \lp g$, if there exists a 1-cell $a > B \to X$ and two 2-cells that exhibit $a$ at the same time as the left extension of $u$ along $f$, and the right lifting of $v$ along $g$:
+we say that \emph{$f$ is left lax-orthogonal to $g$} (or that $g$ is right lax-orthogonal to $f$) and we denote it as $f \lp g$, if there exists a 1-cell $a : B \to X$ and two 2-cells that exhibit $a$ at the same time as the left extension of $u$ along $f$, and the right lifting of $v$ along $g$:
 \[
 \xymatrix{
     A \ar@{}[dr]|(.3)\Swarrow
@@ -81,19 +99,51 @@ we say that \emph{$f$ is left lax-orthogonal to $g$} (or that $g$ is right lax-o
     B \ar[ur]\ar[r]_v & Y
 }
 \]
+\item Dually, in a oplax commutative square like 
+\[
+  \xymatrix{
+    A \ar@{}[dr]|\Nearrow\ar[d]_f \ar[r]^u & X\ar[d]^g \\
+    B \ar[r]_v & Y
+  }  
+  \]
+we say that \emph{$f$ is left oplax-orthogonal to $g$} (or that $g$ is right oplax-orthogonal to $f$) and we denote it as $f \olp g$, if there exists a 1-cell $a : B \to X$ and two 2-cells that exhibit $a$ at the same time as the right extension of $u$ along $f$, and the left lifting of $v$ along $g$:
+\[
+\xymatrix{
+    A \ar@{}[dr]|(.3)\Nearrow
+      \ar@{}[dr]|(.7)\Nearrow
+      \ar[d]_f \ar[r]^u & X\ar[d]^g \\
+    B \ar[ur]\ar[r]_v & Y
+}
+\]
+  \end{itemize}
 \end{definition}
 \begin{remark}
-  Connessione tra le due: la lax ortogonalità è oplax ortogonalità in $\clK^\co$.
+  Oplax orthogonality in $\clK$ is exactly lax orthogonality in $\clK^\co$, and viceversa, lax orthogonality in $\clK$ is exactly oplax orthogonality in $\clK^\co$.
 \end{remark}
 \begin{definition}
-  La connessione di Galois tra le ortogonalità:
+  Given a class of arrows $\clA\subseteq \hom(\clK)$, we can define 
+  \begin{align}
+    {}^{\lp}\clA &= \{g\in\hom(\clK)\mid g\lp a\, \forall a \in\clA\}\\
+    \clA^{\lp} &= \{g\in\hom(\clK)\mid a\lp g\, \forall a \in\clA\}
+  \end{align}
+  This sets up the (contravariant) \emph{Galois connection of lax orthogonality}:
   \[
   {}^{\lp}(\firstblank) \dashv (\firstblank)^{\lp}
   \]
+  from whose zig-zag identities we find that for two classes $\clA,\clB\subseteq\hom(\clK)$, one has $\clA \subseteq {}^{\lp}\clB$ iff $\clB \subseteq \clA^{\lp}$.
+  \todo[inline]{ahem, not sure}
 \end{definition}
 \begin{definition}
-  Lax prefactorization system
+  A \emph{lax prefactorization system} (lax PFS) is a pair of classes of 1-cells $(\clE,\clM)$ such that $\clE = {}^{\lp}\clM$ and $\clM = \clE^{\lp}$.
 \end{definition}
+Each of the two classes of a lax PFS determines the other by the lax orthogonality relation, so if $(\clE,\clM)$ and $(\clE,\clM')$ are two lax PFSs, then $\clE'=\clE$, and similarly for the right classes.
+
+The class of all lax PFS on the same 2-category $\clK$ is canonically ordered by inclusion of the right classes, or reverse inclusion of the left classes:
+\[(\clE,\clM)\preceq (\clE', \clM') \iff \clM \subseteq \clM' \iff \clE'\subseteq \clE.\]
+
+The trivial lax prefactorization systems on $\clK$ are given by the classes 
+\[(\text{LAdj}(\clK), \hom(\clK)) \qquad (\hom(\clK), \text{LAdj}(\clK))\]
+These are, respectively, the maximal and minimal elements in the poset of lax PFS on $\clK$.
 \begin{definition}
   Left and right generated lax prefactorization system
 \end{definition}
@@ -101,33 +151,34 @@ we say that \emph{$f$ is left lax-orthogonal to $g$} (or that $g$ is right lax-o
   Lax ortogonalità in una slice categoria
 \end{definition}
 \begin{lemma}
-  TFAE:
-  \begin{itemize}
-    \item $f\lp f$
-    \item $f \lp All$
-    \item $All \lp f$
-    \item $f$ è un aggiunto sinistro
-  \end{itemize}
+  Let $f : A \to B$ a 1-cell in $\clK$; then, the following conditions are equivalent:
+  \begin{enumtag}{hc}
+    \item $f\lp f$;
+    \item $f \lp \hom(\clK)$;
+    \item $\hom(\clK) \lp f$
+    \item $f$ is a left adjoint in $\clK$.
+  \end{enumtag}
 \end{lemma}
-\begin{remark}
-  Max e min elementi nel poset delle prefactorizations
-\end{remark}
+\begin{proof}
+  
+\end{proof}
 \begin{proposition}
   Proprietà di chiusura:
 \begin{center}
   \begin{tabular}{@{}cc@{}}
   \toprule
   $\clH^{\lp}$                 & ${}^{\lp}\clH$                  \\ \midrule
-  contiene tutti gli iso       & contiene tutti gli iso          \\
+  contiene tutti gli aggiunti sx       & contiene tutti gli aggiunti sx          \\
   chiuso per composizione      & chiuso per composizione         \\
   chiuso per push              & chiuso per pull                 \\
   chiuso per retratti          & chiuso per retratti             \\
-  chiuso per compo transfinite & chiuso per op-compo transfinite \\ \bottomrule
+  chiuso per compo transfinite & chiuso per op-compo transfinite \\ 
+  chiuso per limiti & chiuso per colimiti \\ \bottomrule
   \end{tabular}
 \end{center}
 \end{proposition}
 \begin{proposition}
-  Unicità della fattorizzazione: quanto è unica?
+  Let $f : A \to B$ be a 1-cell in $\clK$, and $(\clE,\clM)$ a lax PFS on $\clK$; assume that there is a factorization $$A \xto{e} H\xto{m} B$$ of $f$ in two parts such that $e\in\clE, m\in\clM$. Then, the object $H$ is unique up to Frobenius adjunction, i.e. every other $H'$ such that there is a factorization $$A \xto{e'} H' \xto{m'} B$$ is connected to $H$ by an adjoint triple $$v\dashv u\dashv v : H \leftrightarrows H'.$$
 \end{proposition}
 \begin{proposition}
   3-per-2 e proprietà di cancellazione:
