@@ -65,7 +65,22 @@ Una lista di cose da fare:
 
 \section{Un po' di cose da fare}
 \begin{definition}[Lax e oplax ortogonalità]
-  
+  Let $\clK$ be a 2-category. If $f : A\to B, g : X\to Y$ are 1-cells in a lax-commutative square
+  \[
+  \xymatrix{
+    A \ar@{}[dr]|\Swarrow\ar[d]_f \ar[r]^u & X\ar[d]^g \\
+    B \ar[r]_v & Y
+  }  
+  \]
+we say that \emph{$f$ is left lax-orthogonal to $g$} (or that $g$ is right lax-orthogonal to $f$) and we denote it as $f \lp g$, if there exists a 1-cell $a > B \to X$ and two 2-cells that exhibit $a$ at the same time as the left extension of $u$ along $f$, and the right lifting of $v$ along $g$:
+\[
+\xymatrix{
+    A \ar@{}[dr]|(.3)\Swarrow
+      \ar@{}[dr]|(.7)\Swarrow
+      \ar[d]_f \ar[r]^u & X\ar[d]^g \\
+    B \ar[ur]\ar[r]_v & Y
+}
+\]
 \end{definition}
 \begin{remark}
   Connessione tra le due: la lax ortogonalità è oplax ortogonalità in $\clK^\co$.
@@ -99,7 +114,7 @@ Una lista di cose da fare:
 \end{remark}
 \begin{proposition}
   Proprietà di chiusura:
-\begin{table}[]
+\begin{center}
   \begin{tabular}{@{}cc@{}}
   \toprule
   $\clH^{\lp}$                 & ${}^{\lp}\clH$                  \\ \midrule
@@ -109,7 +124,7 @@ Una lista di cose da fare:
   chiuso per retratti          & chiuso per retratti             \\
   chiuso per compo transfinite & chiuso per op-compo transfinite \\ \bottomrule
   \end{tabular}
-  \end{table}
+\end{center}
 \end{proposition}
 \begin{proposition}
   Unicità della fattorizzazione: quanto è unica?
@@ -193,4 +208,5 @@ Un problema che è passato sotto silenzio è questo: dobbiamo ancora capire come
   \item Quanto commuta il triangolo in cui un LOFS fattorizza un morfismo? La domanda sembra stupida, ma considera l'inviluppo di Isbell di una categoria $A$: si tratta della categoria delle lax-fattorizzazioni di $\hom_A$ attraverso l'oggetto terminale. Quindi in almeno un contesto una fattorizzazione lax ``esiste in natura''.
   \item Quanto unica è la fattorizzazione una volta trovata? Questo apre una porta molto interessante... classicamente infatti, il trucco per mostrare che in una coppia di fattorizzazioni $A \to Ff \to B$ e $A \to Gf\to B$ i due oggetti $Ff,Gf$ sono isomorfi usa l'ortogonalità, e l'unicità dei lifting. Entrambe proprietà che qui abbiamo opportunamente laxificato.
 \end{itemize}
+\section{Uniqueness of fillers}
 \end{document}
