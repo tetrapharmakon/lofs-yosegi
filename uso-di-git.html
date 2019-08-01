@@ -1,0 +1,65 @@
+<h1 id="come-si-usa-git">|| Come si usa GIT ||</h1>
+<ol type="1">
+<li>Tutto avviene usando un terminale: sospetto la procedure sia identica su un Mac, l’unica cosa che potrebbe cambiare è come reperire GIT (su una macchina *nix:</li>
+</ol>
+<pre><code>$ sudo apt-get install git</code></pre>
+<p>).</p>
+<ol start="2" type="1">
+<li>La procedura per “clonare” un repository come copia locale sulla propria macchina è:</li>
+</ol>
+<p>. avere un account . avere il permesso di cincionare con la repo . dare, nella cartella dove volete creare la sottocartella “repo_dello_gnogni”, il comando da terminale:</p>
+<pre><code>git clone https://[[vostro_nome_utente]]@bitbucket.org/killing_buddha/repo_dello_gnogni.git</code></pre>
+<ol start="3" type="1">
+<li>L’uso di GIT è abbastanza semplice:</li>
+</ol>
+<p>. PRIMA DI INIZIARE A MODIFICARE ALCUNCHÉ, aggiornate sempre la vostra copia locale alla versione più recente (l’ultimo commit che è stato fatto) dando il comando</p>
+<p><code>$ git pull</code></p>
+<p>. lo dico meglio: AGGIORNATE SEMPRE LA VOSTRA COPIA LOCALE PRIMA DI INIZIARE A MODIFICARE ALCUNCHÉ. Questo evita di creare dei conflitti (che a volte, anche se GIT è molto intelligente, non si riescono a risolvere se non perdendo molto tempo.) Quando avete a disposizione la versione più recente della repository, il comando</p>
+<p><code>$ git status</code></p>
+<p>dovrebbe dirvi un rassicurante</p>
+<pre><code>Sul branch master
+Your branch is up-to-date with &#39;origin/master&#39;.
+nothing to commit, working directory clean</code></pre>
+<p>. Fate le modifiche che volete al file / ai file su cui lavorate: modificare testo, aggiungere un file o cartella, cancellare un file o cartella, rinominarli, sono tutte operazioni ammesse.</p>
+<p>. Una volta che avete terminato, o quando avete finito di fare una modifica importante,</p>
+<p><code>$ git add -A</code></p>
+<p>. Prima di dare questo comando, “git status” vi avrebbe avvertito della presenza di file, cartelle o altro che sono state modificate, ma non aggiunte al “workbench” (il posto dove GIT vede il lavoro che poi committerete):</p>
+<pre><code>Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+(use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+modified:   [[[nomefile]]]
+
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+
+[[nomefile/cartella]]</code></pre>
+<p>no changes added to commit (use “git add” and/or “git commit -a”)</p>
+<p>Dopo aver ordinato</p>
+<p><code>git add -A</code></p>
+<p>invece, il comando “git status” dovrebbe dare come risultato</p>
+<pre><code>Changes to be committed:
+(use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+    new file/folder:   [[nome]]
+    modified:   [[nome]]</code></pre>
+<p>. Ora dobbiamo committare le modifiche; fino a questo punto, il processo è reversibile, e se nel frattempo altre modifiche che rendono le nostre obsolete sono state committate da altri utenti, possiamo decidere quali tenere. Quello che GIT fa a questo punto è raccogliere dai vari workbench degli utenti tutte le modifiche ai file che tiene nel repository, e confrontarle marcando le differenze (sempre che si siano create in quel lasso di tempo: 999 volte su 1000 c’è solo un utente per volta che lavora sulla repo; in progetti piccoli (&lt;10 persone) non accadrà mai di lavorare allo stesso tempo e questo discorso si semplifica molto; ma siccome valgono le leggi di Murphy…)</p>
+<p>. Il comando</p>
+<p><code>$ git commit -m "[[[commento]]]"</code></p>
+<p>committa le modifiche. tra le virgolette c’è del testo che spiega cosa avete fatto; solitamente si scelgono poche parole che lo dicono concisamente: “added thm 4.7”, “modified Lemma 5”, “created section 1.1”…</p>
+<p>!!! É IMPORTANTE SPECIFICARE SEMPRE QUALCOSA COME COMMENTO (GIT NON ACCETTA COMMIT VUOTI). Quando non modificate niente di importante, fate un esperimento, modificate una parte commentata, o qualsiasi altra cosa di insignificante, la prassi è specificare uno “standard commit” oppure “tua madre prende ancora banconote false”.</p>
+<p>Ora, “git status” restituisce</p>
+<pre><code>[master 93f9ffc] [[[commento]]]
+ 2 files changed, 55 insertions(+), 4 deletions(-)
+ create mode 100644 nome</code></pre>
+<p>Che significa che tutto va come deve.</p>
+<p>. L’ultimo passo, per rendere definitive le modifiche è</p>
+<p><code>$ git push</code></p>
+<p>Fatto questo, sul repo vengono scritte le modifiche che avete apportato, le quali diventano ufficiali (soprattutto, diventa possibile tornare a questa versione in qualsiasi momento da una più moderna, se dovesse servire). GIT vi chiederà la password con cui avete creato il vostro account; questo rende molto leggibile l’evoluzione del documento: tutti i commit e i push sono tracciati con il vostro nome utente, un identificativo numerico, il contenuto del commento ad ogni commit, e diverse altre informazioni</p>
+<p>Pushate le modifiche, “git status” restituisce</p>
+<pre><code>Counting objects: 5, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 1.57 KiB | 0 bytes/s, done.
+Total 5 (delta 3), reused 0 (delta 0)
+To https://killing_buddha@bitbucket.org/killing_buddha/nome_del_repo.git
+   46d4e3d..93f9ffc  master -&gt; master</code></pre>

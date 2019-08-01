@@ -4,12 +4,11 @@
 
 \title{a thing about things}
 \author{
-    Ivan Di Liberti
-  , Leonardo Larizza
-  , Fosco Loregian
+    Ivan Di Liberti%
+  , Leonardo Larizza%
+  , Fosco Loregian%
 }
 
-\def\lp{\mathrel{\mathpalette{\relax}{\Finv}}}
 \usepackage{booktabs}
 
 \def\A{\protect{\{\begin{smallmatrix}
@@ -24,6 +23,23 @@
   \text{subcat}\\
   \text{lax refl}
 \end{smallmatrix} \} }}
+
+
+\newcommand{\dolp}[1]{\mathrel{
+  \begin{tikzpicture}[scale=#1]
+    \draw[rounded corners=.25pt, line width=.4pt] (0,0) rectangle (1,1);
+    \draw[line width=.3pt] (0,0) -- (1,1);
+    \fill (0,0) rectangle (.4,.4);
+    \end{tikzpicture}
+}}
+
+\newcommand{\lp}{
+\mathchoice{\dolp{.165}}
+  {\dolp{.165}}
+  {\mathrel{\dolp{.1325}}}
+  {\mathrel{\dolp{.1}}}
+}
+
 \begin{document}
 \maketitle
 Una lista di cose da fare:
@@ -75,7 +91,7 @@ Una lista di cose da fare:
     \item $f\lp f$
     \item $f \lp All$
     \item $All \lp f$
-    \item $f$ è un{\dots} iso?
+    \item $f$ è un aggiunto sinistro
   \end{itemize}
 \end{lemma}
 \begin{remark}
@@ -83,8 +99,6 @@ Una lista di cose da fare:
 \end{remark}
 \begin{proposition}
   Proprietà di chiusura:
-  % Please add the following required packages to your document preamble:
-% \usepackage{booktabs}
 \begin{table}[]
   \begin{tabular}{@{}cc@{}}
   \toprule
@@ -119,4 +133,64 @@ Una lista di cose da fare:
     \item $\Phi : (\bfB\subseteq \bfC) \mapsto \big({}^{\lp}(\hom\bfB), ({}^{\lp}(\hom\bfB))^{\lp}\big)$
   \end{itemize}
 \end{theorem}
+\section{Alcune minchiate e conti}
+Vogliamo rifare il teorema centrale di CHK succitato.
+
+Per farlo, bisogna rifare un po' tutta la teoria dei FS lax; la corrispondenza tra monadi e subcat è già stata fatta da Adamek (chiamo così l'unico paper dove Adamek è un autore). La regola è
+\[
+\bfB \mapsto \Big({}^{\lp}(\hom\bfB), ({}^{\lp}(\hom\bfB))^{\lp}\Big)
+\]
+
+Dobbiamo tornare indietro, associando una subcat KZ-riflessiva a un LOFS riflessivo (cioè $\clM$ è 2-su-3). Dato un tale LOFS $(\clE,\clM)$ consideriamo la sottocategoria degli oggetti la cui freccia terminale sta in $\clM$; questo è il candidato a essere riflessivo in $\bfC$. Il trucco di [CHK] è sfruttare ortogonalità forte e fattorizzabilità (almeno dei morfismi terminali) per ottenere una riflessione. 
+
+Il mantra: la $\clE$-parte di $X \to 1$ è l'unità della monade.
+
+Definiamo allora $\clM/1 = \{X\mid X\to 1\in\clM\}$ e proviamo a costruire un 2-funtore $R : \bfC \to \clM/1$ che generi una KZ-monade, ossia dimostriamo che $\clM/1$ è KZ-riflessiva.
+
+Nella definizione di Ivan, ciò significa che 
+\begin{itemize}
+  \item $\clM/1$ è possibilmente non-full in $\bfC$;
+  \item $i : \clM/1 \hookrightarrow \bfC$ è tale che ciascun $i_{XY} : \clM/1(A,B) \to \bfC(iA,iB)$ è una riflessione. 
+\end{itemize}
+Per prima cosa allora dobbiamo costruire $R$, determinarne l'azione sulle 1- e  2-celle, e capire se effettivamente la composizione $iR$ è una KZ-monade. La condizione di KZ-monade è
+\[\eta_{RA}\dashv \mu_A \dashv R\eta_A\]
+(non è la condizione più economica da dimostrare ma è quella che costringe a esplicitare tutti i dati).
+\begin{itemize}
+  \item $\eta_{RA}$ è la $\clE$-parte della fattorizzazione di $RA\to 1$; si ha 
+  \[RA \xto{\eta_{RA}} RRA \to 1.\]
+  \item per determinare $R\eta_A$ bisogna capire come agisce $R$ sui morfismi; classicamente, dato $f : A \to B$ si usa l'ortogonalità per costruire $RA \to RB$ come unico filler di 
+  \[
+  \xymatrix{
+    A \ar[r]^f \ar[d]_{\eta_A} & B \ar[r]^{\eta_B} & RB \ar[d]\\
+    RA \ar[rr] \ar[urr]&& 1
+  }  
+  \] 
+  Nulla cambia molto ora, tranne per il fatto che i triangoli non commutano più ma sono universali:
+  \[
+  \xymatrix{
+    A\ar@{}[drr]|(.3)\Swarrow\ar@{}[drr]|(.7)\Swarrow \ar[r]^f \ar[d]_{\eta_A} & B \ar[r]^{\eta_B} & RB \ar[d]\\
+    RA \ar[rr] \ar[urr]&& 1
+  }  
+  \] 
+  (il triangolo superiore è una Lan, quello inferiore un Rift, e le celle ne sono rispettivamente unità e counità.)
+
+  L'azione di $R$ sui morfismi è perciò data da una formula piuttosto familiare:
+  \[Rf = \Lan_{\eta_A}(\eta_B f)\]
+  Notare che il triangolo di Rift ora non dà particolari informazioni: la cella è invertibile, perché deve coincidere con l'unico isomorfismo che connette ogni coppia di 1-celle $RA\to 1$. La riflessività di $\clM$ però implica che per ogni $f : A \to B$ si abbia $Rf \in\clM$; questo corrobora l'intuizione che $Rf$ sia una sorta di $\bsP_! f$ perché in $\clM$ moralmente devono stare i morfismi cocontinui. 
+  
+  Altro fatto curioso: supponiamo che $f$ stia in $\clE$ e che anche $\clE$ sia 2-su-3 (ipotesi di lavoro costante quando facevo t-strutture): siccome $\eta_A, \eta_B \in\clE$ per costruzione, si ha che $Rf \in\clE\cap\clM$, cioè è un \emph{aggiunto sinistro}; sapevamo che era cocontinuo tra categorie di prefasci, e Freyd ci dava un aggiunto gratis; però è curioso che (probabilmente) una forma del teorema del funtore aggiunto sia un risultato di ortogonalità: un cocontinuo, che in più sta in $\clE$, deve essere un aggiunto sinistro.
+  \item La moltiplicazione $\mu_A$ si determina a partire dall'aggiunzione con la formula $\mu = i\epsilon R$, ma ce n'è una caratterizzazione alternativa. In questo momento non è determinante trovarla (abbiamo problemi più fondamentali); però a un certo punto sarà necessario, perché qui $R$ non è idempotente. Prendere cioè la fattorizzazione di $A\to 1$ due volte non dà $RA$ come risultato.
+
+  Quello che succede è però ben più interessante: classicamente, ciò che si fa è fattorizzare $RA\to 1$ e ottenere
+  \[RA \xto{\eta_{RA}} RRA \xto{m} 1 \]
+  Per 2-su-3, $\eta_{RA}\in\clE\cap\clM$, è un isomorfismo, e quindi anche $\mu$, che ce l'ha come inverso destro, deve essere un isomorfismo, quindi la monade è idempotente.
+
+  Ora, la lax idempotenza si apprezza tutta nel fatto che $\clE\cap \clM$ è fatta dagli aggiunti sinistri! Ciò che otteniamo, ora, è infatti che $\eta_{RA}$ è un aggiunto sinistro, e il suo aggiunto destro è un candidato a fare da $\mu_A : RRA \to RA$.
+\end{itemize}
+\section{Un problema concreto: quanto è unica una fattorizzazione?}
+Un problema che è passato sotto silenzio è questo: dobbiamo ancora capire come si risponde quindi ogni proposta è bene accetta, anche se sembra stupida.
+\begin{itemize}
+  \item Quanto commuta il triangolo in cui un LOFS fattorizza un morfismo? La domanda sembra stupida, ma considera l'inviluppo di Isbell di una categoria $A$: si tratta della categoria delle lax-fattorizzazioni di $\hom_A$ attraverso l'oggetto terminale. Quindi in almeno un contesto una fattorizzazione lax ``esiste in natura''.
+  \item Quanto unica è la fattorizzazione una volta trovata? Questo apre una porta molto interessante... classicamente infatti, il trucco per mostrare che in una coppia di fattorizzazioni $A \to Ff \to B$ e $A \to Gf\to B$ i due oggetti $Ff,Gf$ sono isomorfi usa l'ortogonalità, e l'unicità dei lifting. Entrambe proprietà che qui abbiamo opportunamente laxificato.
+\end{itemize}
 \end{document}
