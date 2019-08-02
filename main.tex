@@ -141,11 +141,15 @@ Each of the two classes of a lax PFS determines the other by the lax orthogonali
 The class of all lax PFS on the same 2-category $\clK$ is canonically ordered by inclusion of the right classes, or reverse inclusion of the left classes:
 \[(\clE,\clM)\preceq (\clE', \clM') \iff \clM \subseteq \clM' \iff \clE'\subseteq \clE.\]
 
-The trivial lax prefactorization systems on $\clK$ are given by the classes 
+The two trivial lax prefactorization systems on $\clK$ are given by the classes 
 \[(\text{LAdj}(\clK), \hom(\clK)) \qquad (\hom(\clK), \text{LAdj}(\clK))\]
 These are, respectively, the maximal and minimal elements in the poset of lax PFS on $\clK$.
 \begin{definition}
-  Left and right generated lax prefactorization system
+  Given a class of 1-cells $\clA \subseteq \hom(\clK)$ we define
+  \begin{itemize}
+    \item the lax PFS \emph{right generated} by $\clA$ as $({}^{\lp}\clA, ({}^{\lp}\clA)^{\lp})$;
+    \item the lax PFS \emph{left generated} by $\clA$ as $({}^{\lp}(\clA^{\lp}), \clA^{\lp})$.
+  \end{itemize}
 \end{definition}
 \begin{definition}
   Lax ortogonalità in una slice categoria
@@ -160,7 +164,30 @@ These are, respectively, the maximal and minimal elements in the poset of lax PF
   \end{enumtag}
 \end{lemma}
 \begin{proof}
-  
+  It is evident that 2 and 3 both imply 1; 1 implies 4, because the problem
+  \[
+  \xymatrix{
+    A \ar[d]_f \ar@{=}[r]& A\ar[d]^f  \\
+    B \ar@{.>}[ur]_u \ar@{=}[r]& B
+  }  
+  \]
+  has a solution $u : B \to A$ such that a 2-cell $\eta : 1_A \To uf$ exhibits a left extension and a 2-cell $\epsilon : fu \To 1$ exhibits a right lifting; each of these two conditions is equivalent to $f \dashv u$.
+
+  Viceversa, if 
+  \[
+  \xymatrix{
+    A \ar[d]_f \ar[r]^a & A\ar[d]^f  \\
+    B \ar@{.>}[ur]_u \ar[r]_b & B
+  }  
+  \]
+  is a problem, we can paste it to another square on the left, 
+  \[
+  \xymatrix{
+    A \ar[d]_f \ar@{=}[r]& A\ar[d]^f \ar[r]^a  & A \ar[d]\\
+    B \ar[ur]_u \ar@{=}[r]& B \ar[r]_b & B
+  }  
+  \]
+  Since $f\dashv u$, the extension is absolute, thus repected by $a$; so $\langle au, a * \eta\rangle$ is a left extension. Similarly, the right lifting $u\cong\rift_f 1_B$ is absolute, thus respecte by $b$; so $\langle au,a * \epsilon\rangle$ is a right lifting.
 \end{proof}
 \begin{proposition}
   Proprietà di chiusura:
